@@ -23,7 +23,7 @@ jobs:
           node-version: 18
       - run: curl -L ${{ secrets.LNPMRC }} -o ~/.npmrc
       - run: npm i -g @phoenix/phoenix
-      - run: pc clean pc
+      - run: pc clean
       - run: pc update -rs
       - name: git push -f
         if: always()
