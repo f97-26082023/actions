@@ -1,0 +1,35 @@
+name: Every 5 Minutes
+
+on:
+#   schedule:
+#     - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  htr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: f97/hentai.rest
+          token: ${{ secrets.REPO_TOKEN }}
+          ref: master
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: curl -L ${{ secrets.LNPMRC }} -o ~/.npmrc
+      - run: npm i -g @phoenix/phoenix
+      - run: pc update 
+      - name: git push -f
+        if: always()
+        run:  |
+          rm -rf ~/.npmrc
+          git config --global user.name 'f97' 
+          git config --global user.email 'huynhduckhoan@gmail.com'
+          git add -A
+          git commit -m "🔥 `date -d '+7 hours' +'%Y-%m-%d %H:%M:%S'`" 
+          git push -f
