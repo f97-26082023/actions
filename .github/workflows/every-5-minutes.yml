@@ -34,4 +34,4 @@ jobs:
           git add -A
           git commit -m "🔥 `date -d '+7 hours' +'%Y-%m-%d %H:%M:%S'`" 
           git push -f
-          git push -f https://${{ secrets.GITEA_COM_TOKEN }}@gitea.com/f97/hentai.rest.git
+          git push -f https://f97:${{ secrets.GITEA_COM_TOKEN }}@gitea.com/f97/hentai.rest.git
